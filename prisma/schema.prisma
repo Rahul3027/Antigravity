@@ -1,0 +1,49 @@
+datasource db {
+  provider = "sqlite"
+
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String    @id @default(cuid())
+  name      String
+  email     String    @unique
+  password  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  sessions  Session[]
+}
+
+model Session {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  startDate   DateTime  @default(now())
+  endDate     DateTime?
+  status      String    @default("ACTIVE") // ACTIVE, COMPLETED
+  caseStudyId String?
+  transcript  String    @default("[]") // JSON string of messages
+  report      Report?
+}
+
+model Report {
+  id             String   @id @default(cuid())
+  sessionId      String   @unique
+  session        Session  @relation(fields: [sessionId], references: [id])
+  score          Int
+  feedback       String   // Main textual feedback
+  structuring    Int
+  communication  Int
+  businessAcumen Int
+  createdAt      DateTime @default(now())
+}
+
+model CaseStudyChunk {
+  id          String   @id @default(cuid())
+  caseName    String
+  text        String
+  embedding   String   // JSON stringified array of floats
+}
