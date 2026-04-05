@@ -1,0 +1,3 @@
+src/app/login/page.tsx(2,10): error TS2614: Module '"next"' has no exported member 'useState'. Did you mean to use 'import useState from "next"' instead?
+src/app/signup/page.tsx(2,10): error TS2614: Module '"next"' has no exported member 'useState'. Did you mean to use 'import useState from "next"' instead?
+src/lib/prisma.ts(5,68): error TS2353: Object literal may only specify known properties, and 'url' does not exist in type 'Subset<PrismaClientOptions, PrismaClientOptions>'.
