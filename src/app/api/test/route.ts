@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+export const dynamic = "force-dynamic";
 import { authOptions } from "@/lib/auth";
 import NextAuth from "next-auth";
 
