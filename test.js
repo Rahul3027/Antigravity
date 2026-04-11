@@ -1,0 +1,1 @@
+fetch('http://localhost:3000/api/chat', {method: 'POST', body: JSON.stringify({sessionId: 's', messages: [{role: 'user', text: 'hello'}]}), headers: {'Content-Type': 'application/json'}}).then(r => r.json()).then(o => console.log(o.error))

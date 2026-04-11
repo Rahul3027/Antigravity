@@ -29,9 +29,15 @@ export default function Interview({ params }: { params: Promise<{ id: string }> 
         body: JSON.stringify({ sessionId: id, messages: newMsgs })
       });
       const data = await res.json();
-      setMessages([...newMsgs, { role: "interviewer", text: data.response }]);
-    } catch (e) {
+      
+      if (!res.ok || data.error) {
+        setMessages([...newMsgs, { role: "interviewer", text: `[Server Error]: ${data.error || "Unknown error"}` }]);
+      } else {
+        setMessages([...newMsgs, { role: "interviewer", text: data.response }]);
+      }
+    } catch (e: any) {
       console.error(e);
+      setMessages([...newMsgs, { role: "interviewer", text: `[Network Error]: ${e.message}` }]);
     } finally {
       setIsLoading(false);
     }
